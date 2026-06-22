@@ -16,6 +16,8 @@ A small crew of LLM agents reasons over a synthetic **FHIR R4** bundle
 **approve / deny / pend** decision with a human-readable rationale and the
 exact policy rules that fired — shown live in a Streamlit dashboard.
 
+**▶️ Live demo:** [huggingface.co/spaces/AkshAt3114/prior-auth-triage](https://huggingface.co/spaces/AkshAt3114/prior-auth-triage)
+
 > ⚠️ **All data in this repository is fabricated.** This is a portfolio
 > proof-of-concept. It is **not** a medical device, **not** clinical decision
 > support, and must **not** be used with real patient data.
