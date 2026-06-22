@@ -1,0 +1,28 @@
+{
+  "_note": "MOCK coverage ruleset for a synthetic PoC. Fictional payer. Not a real medical policy. Edit freely.",
+  "policy_version": "MOCK-PA-2026.06",
+  "payer": "Synthetic Health Plan (FICTIONAL)",
+  "requires_diagnosis": true,
+  "covered_cpt": ["29881", "72148", "70551"],
+  "exclusions": [
+    {
+      "cpt": "15823",
+      "reason": "Cosmetic/elective eyelid surgery (blepharoplasty) is excluded unless functional visual impairment is documented and pre-approved under a separate medical-necessity pathway."
+    }
+  ],
+  "prior_auth_required": [
+    {
+      "cpt": "72148",
+      "criteria": [
+        "Documentation of at least 6 weeks of conservative therapy (e.g., physical therapy and/or NSAIDs)",
+        "A documented neurologic deficit or radiculopathy red-flag finding (e.g., motor weakness, foot drop, progressive symptoms)"
+      ]
+    },
+    {
+      "cpt": "70551",
+      "criteria": [
+        "Documented focal neurologic findings or failure of initial outpatient workup"
+      ]
+    }
+  ]
+}

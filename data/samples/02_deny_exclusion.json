@@ -1,0 +1,66 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-002",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-002",
+        "identifier": [
+          { "type": { "coding": [ { "code": "MR", "display": "Medical Record Number" } ] }, "system": "urn:mock:mrn", "value": "MRN-3390087" }
+        ],
+        "name": [ { "family": "Okafor", "given": [ "Adaeze" ] } ],
+        "gender": "female",
+        "birthDate": "1972-11-30"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:encounter-002",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "encounter-002",
+        "status": "finished",
+        "class": { "code": "AMB", "display": "ambulatory" },
+        "subject": { "reference": "Patient/patient-002" },
+        "reasonCode": [ { "text": "Cosmetic concern regarding upper eyelid appearance" } ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:coverage-002",
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-002",
+        "status": "active",
+        "type": { "text": "Synthetic Health Plan PPO" },
+        "subscriberId": "SUB-002",
+        "beneficiary": { "reference": "Patient/patient-002" },
+        "payor": [ { "display": "Synthetic Health Plan (FICTIONAL)" } ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:claim-002",
+      "resource": {
+        "resourceType": "Claim",
+        "id": "claim-002",
+        "status": "active",
+        "use": "preauthorization",
+        "patient": { "reference": "Patient/patient-002" },
+        "insurance": [ { "sequence": 1, "focal": true, "coverage": { "reference": "Coverage/coverage-002" } } ],
+        "diagnosis": [
+          { "sequence": 1, "diagnosisCodeableConcept": { "text": "Dermatochalasis of bilateral upper eyelids" } }
+        ],
+        "item": [
+          { "sequence": 1, "productOrService": { "text": "Upper eyelid blepharoplasty" } }
+        ],
+        "supportingInfo": [
+          {
+            "sequence": 1,
+            "category": { "text": "clinical-note" },
+            "valueString": "Patient requests upper eyelid blepharoplasty for cosmetic rejuvenation. No visual field obstruction reported. No functional impairment documented. Procedure is elective and cosmetic in nature."
+          }
+        ]
+      }
+    }
+  ]
+}

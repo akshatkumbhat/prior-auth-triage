@@ -1,0 +1,66 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-004",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-004",
+        "identifier": [
+          { "type": { "coding": [ { "code": "MR", "display": "Medical Record Number" } ] }, "system": "urn:mock:mrn", "value": "MRN-9087345" }
+        ],
+        "name": [ { "family": "Castellano", "given": [ "Lucia", "M" ] } ],
+        "gender": "female",
+        "birthDate": "1959-07-21"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:encounter-004",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "encounter-004",
+        "status": "finished",
+        "class": { "code": "AMB", "display": "ambulatory" },
+        "subject": { "reference": "Patient/patient-004" },
+        "reasonCode": [ { "text": "Progressive lumbar radiculopathy with weakness" } ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:coverage-004",
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-004",
+        "status": "active",
+        "type": { "text": "Synthetic Health Plan PPO" },
+        "subscriberId": "SUB-004",
+        "beneficiary": { "reference": "Patient/patient-004" },
+        "payor": [ { "display": "Synthetic Health Plan (FICTIONAL)" } ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:claim-004",
+      "resource": {
+        "resourceType": "Claim",
+        "id": "claim-004",
+        "status": "active",
+        "use": "preauthorization",
+        "patient": { "reference": "Patient/patient-004" },
+        "insurance": [ { "sequence": 1, "focal": true, "coverage": { "reference": "Coverage/coverage-004" } } ],
+        "diagnosis": [
+          { "sequence": 1, "diagnosisCodeableConcept": { "text": "Lumbar radiculopathy" } }
+        ],
+        "item": [
+          { "sequence": 1, "productOrService": { "text": "MRI lumbar spine without contrast" } }
+        ],
+        "supportingInfo": [
+          {
+            "sequence": 1,
+            "category": { "text": "clinical-note" },
+            "valueString": "65-year-old with 10 weeks of progressive low back pain and right leg radiculopathy. Completed 8 weeks of supervised physical therapy and a full course of NSAIDs without relief. Exam now shows right foot drop and new motor weakness (4/5 dorsiflexion). Given the documented neurologic deficit and failed conservative therapy, requesting MRI of the lumbar spine without contrast."
+          }
+        ]
+      }
+    }
+  ]
+}

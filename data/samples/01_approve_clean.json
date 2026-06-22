@@ -1,0 +1,66 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-001",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-001",
+        "identifier": [
+          { "type": { "coding": [ { "code": "MR", "display": "Medical Record Number" } ] }, "system": "urn:mock:mrn", "value": "MRN-7781234" }
+        ],
+        "name": [ { "family": "Reyes", "given": [ "Marcus", "T" ] } ],
+        "gender": "male",
+        "birthDate": "1968-04-12"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:encounter-001",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "encounter-001",
+        "status": "finished",
+        "class": { "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "AMB", "display": "ambulatory" },
+        "subject": { "reference": "Patient/patient-001" },
+        "reasonCode": [ { "text": "Chronic right knee pain with mechanical locking" } ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:coverage-001",
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-001",
+        "status": "active",
+        "type": { "text": "Synthetic Health Plan PPO" },
+        "subscriberId": "SUB-001",
+        "beneficiary": { "reference": "Patient/patient-001" },
+        "payor": [ { "display": "Synthetic Health Plan (FICTIONAL)" } ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:claim-001",
+      "resource": {
+        "resourceType": "Claim",
+        "id": "claim-001",
+        "status": "active",
+        "use": "preauthorization",
+        "patient": { "reference": "Patient/patient-001" },
+        "insurance": [ { "sequence": 1, "focal": true, "coverage": { "reference": "Coverage/coverage-001" } } ],
+        "diagnosis": [
+          { "sequence": 1, "diagnosisCodeableConcept": { "text": "Right knee osteoarthritis" } }
+        ],
+        "item": [
+          { "sequence": 1, "productOrService": { "text": "Arthroscopic partial meniscectomy of the right knee" } }
+        ],
+        "supportingInfo": [
+          {
+            "sequence": 1,
+            "category": { "text": "clinical-note" },
+            "valueString": "58-year-old with right knee osteoarthritis and a degenerative medial meniscus tear. Mechanical locking and effusion. Completed 10 weeks of physical therapy and a corticosteroid injection without lasting relief. Requesting arthroscopic partial meniscectomy of the right knee."
+          }
+        ]
+      }
+    }
+  ]
+}

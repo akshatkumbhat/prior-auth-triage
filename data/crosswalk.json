@@ -1,0 +1,57 @@
+{
+  "_note": "MOCK ICD-10 / CPT crosswalk for a synthetic PoC. Not clinically authoritative. Edit freely. Matching is case-insensitive and based on the alias 'terms'.",
+  "diagnoses": [
+    {
+      "icd10": "M17.11",
+      "description": "Unilateral primary osteoarthritis, right knee",
+      "terms": ["right knee osteoarthritis", "osteoarthritis of the right knee", "knee oa", "degenerative joint disease right knee"]
+    },
+    {
+      "icd10": "M54.16",
+      "description": "Radiculopathy, lumbar region",
+      "terms": ["lumbar radiculopathy", "lumbar radiculitis", "radiculopathy lumbar region", "sciatica"]
+    },
+    {
+      "icd10": "M54.50",
+      "description": "Low back pain, unspecified",
+      "terms": ["low back pain", "chronic low back pain", "lumbago", "lbp"]
+    },
+    {
+      "icd10": "H02.835",
+      "description": "Dermatochalasis of bilateral upper eyelids",
+      "terms": ["dermatochalasis", "excess upper eyelid skin", "baggy eyelids", "upper eyelid dermatochalasis"]
+    },
+    {
+      "icd10": "G56.01",
+      "description": "Carpal tunnel syndrome, right upper limb",
+      "terms": ["carpal tunnel syndrome", "carpal tunnel right", "cts right hand"]
+    }
+  ],
+  "procedures": [
+    {
+      "cpt": "29881",
+      "description": "Arthroscopy, knee, surgical; with meniscectomy (medial OR lateral)",
+      "terms": ["knee arthroscopy with meniscectomy", "arthroscopic meniscectomy", "knee arthroscopy", "arthroscopic partial meniscectomy"]
+    },
+    {
+      "cpt": "72148",
+      "description": "MRI, lumbar spine, without contrast",
+      "terms": ["mri lumbar spine", "lumbar spine mri", "mri of the lower back", "mri lumbar spine without contrast", "lumbar mri"]
+    },
+    {
+      "cpt": "70551",
+      "description": "MRI, brain, without contrast",
+      "terms": ["mri brain", "brain mri", "mri of the brain without contrast"]
+    },
+    {
+      "cpt": "15823",
+      "description": "Blepharoplasty, upper eyelid",
+      "terms": ["blepharoplasty", "upper eyelid blepharoplasty", "eyelid lift", "cosmetic eyelid surgery"]
+    },
+    {
+      "cpt": "97810",
+      "description": "Acupuncture, 1 or more needles; without electrical stimulation",
+      "terms": ["acupuncture", "dry needling", "acupuncture therapy"]
+    }
+  ]
+}

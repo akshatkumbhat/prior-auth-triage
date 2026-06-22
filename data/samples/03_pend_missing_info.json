@@ -1,0 +1,66 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-003",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-003",
+        "identifier": [
+          { "type": { "coding": [ { "code": "MR", "display": "Medical Record Number" } ] }, "system": "urn:mock:mrn", "value": "MRN-5512260" }
+        ],
+        "name": [ { "family": "Nguyen", "given": [ "Hoang" ] } ],
+        "gender": "male",
+        "birthDate": "1985-02-09"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:encounter-003",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "encounter-003",
+        "status": "finished",
+        "class": { "code": "AMB", "display": "ambulatory" },
+        "subject": { "reference": "Patient/patient-003" },
+        "reasonCode": [ { "text": "Acute low back pain" } ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:coverage-003",
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-003",
+        "status": "active",
+        "type": { "text": "Synthetic Health Plan HMO" },
+        "subscriberId": "SUB-003",
+        "beneficiary": { "reference": "Patient/patient-003" },
+        "payor": [ { "display": "Synthetic Health Plan (FICTIONAL)" } ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:claim-003",
+      "resource": {
+        "resourceType": "Claim",
+        "id": "claim-003",
+        "status": "active",
+        "use": "preauthorization",
+        "patient": { "reference": "Patient/patient-003" },
+        "insurance": [ { "sequence": 1, "focal": true, "coverage": { "reference": "Coverage/coverage-003" } } ],
+        "diagnosis": [
+          { "sequence": 1, "diagnosisCodeableConcept": { "text": "Lumbar radiculopathy" } }
+        ],
+        "item": [
+          { "sequence": 1, "productOrService": { "text": "MRI of the lumbar spine without contrast" } }
+        ],
+        "supportingInfo": [
+          {
+            "sequence": 1,
+            "category": { "text": "clinical-note" },
+            "valueString": "Patient reports low back pain radiating into the left leg for the past 2 weeks. Exam without focal motor deficit. No physical therapy or NSAID trial has been attempted yet. Requesting MRI of the lumbar spine."
+          }
+        ]
+      }
+    }
+  ]
+}

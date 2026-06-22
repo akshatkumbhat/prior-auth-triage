@@ -1,0 +1,66 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-005",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-005",
+        "identifier": [
+          { "type": { "coding": [ { "code": "MR", "display": "Medical Record Number" } ] }, "system": "urn:mock:mrn", "value": "MRN-2204418" }
+        ],
+        "name": [ { "family": "Brooks", "given": [ "Daniel" ] } ],
+        "gender": "male",
+        "birthDate": "1990-09-03"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:encounter-005",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "encounter-005",
+        "status": "finished",
+        "class": { "code": "AMB", "display": "ambulatory" },
+        "subject": { "reference": "Patient/patient-005" },
+        "reasonCode": [ { "text": "Chronic low back pain" } ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:coverage-005",
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-005",
+        "status": "active",
+        "type": { "text": "Synthetic Health Plan HMO" },
+        "subscriberId": "SUB-005",
+        "beneficiary": { "reference": "Patient/patient-005" },
+        "payor": [ { "display": "Synthetic Health Plan (FICTIONAL)" } ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:claim-005",
+      "resource": {
+        "resourceType": "Claim",
+        "id": "claim-005",
+        "status": "active",
+        "use": "preauthorization",
+        "patient": { "reference": "Patient/patient-005" },
+        "insurance": [ { "sequence": 1, "focal": true, "coverage": { "reference": "Coverage/coverage-005" } } ],
+        "diagnosis": [
+          { "sequence": 1, "diagnosisCodeableConcept": { "text": "Chronic low back pain" } }
+        ],
+        "item": [
+          { "sequence": 1, "productOrService": { "text": "Acupuncture therapy, initial 15 minutes" } }
+        ],
+        "supportingInfo": [
+          {
+            "sequence": 1,
+            "category": { "text": "clinical-note" },
+            "valueString": "Patient with chronic low back pain requests a course of acupuncture for pain management. No red-flag findings."
+          }
+        ]
+      }
+    }
+  ]
+}
