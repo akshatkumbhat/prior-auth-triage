@@ -47,6 +47,11 @@ def get_llm(settings: Settings | None = None) -> "BaseChatModel":
             model=settings.gemini_model,
             google_api_key=settings.google_api_key,
             temperature=settings.llm_temperature,
+            # Pin to the Developer API (API-key) path. In managed containers
+            # (e.g. Hugging Face Spaces) ambient Google env vars can otherwise
+            # flip the client into Vertex AI mode, which authenticates via OAuth
+            # and rejects AI Studio API keys with 401 ACCESS_TOKEN_TYPE_UNSUPPORTED.
+            vertexai=False,
         )
 
     if settings.llm_provider == "ollama":
