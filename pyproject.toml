@@ -13,6 +13,9 @@ dependencies = [
     "pydantic>=2.7",
     "pydantic-settings>=2.3",
     "streamlit>=1.36",
+    # Transitive via google-auth. Capped because cryptography 49.x lacks a
+    # prebuilt x86_64 macOS wheel here, which would force a from-source build.
+    "cryptography<49",
 ]
 
 [project.optional-dependencies]
@@ -24,6 +27,13 @@ dev = [
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.uv]
+# `cryptography` (a transitive dep via google-auth) ships prebuilt wheels, but
+# its newest release may lack a wheel for some macOS/x86_64 setups, where uv
+# would otherwise try to compile it from source (needs Rust + OpenSSL) and fail.
+# Restrict it to wheels only so uv resolves to the newest version that has one.
+no-build-package = ["cryptography"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pa_triage"]
