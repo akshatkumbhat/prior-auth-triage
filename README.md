@@ -11,6 +11,10 @@ license: mit
 
 # Prior-Authorization Triage — Multi-Agent PoC
 
+[![Hugging Face Space](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Live%20Demo-blue)](https://huggingface.co/spaces/AkshAt3114/prior-auth-triage)
+[![Python](https://img.shields.io/badge/python-3.13-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
 A small crew of LLM agents reasons over a synthetic **FHIR R4** bundle
 (Patient, Encounter, Claim, Coverage) and produces a structured
 **approve / deny / pend** decision with a human-readable rationale and the
