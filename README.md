@@ -1,3 +1,14 @@
+---
+title: Prior-Auth Triage
+emoji: 🩺
+colorFrom: blue
+colorTo: indigo
+sdk: streamlit
+app_file: app/dashboard.py
+pinned: false
+license: mit
+---
+
 # Prior-Authorization Triage — Multi-Agent PoC
 
 A small crew of LLM agents reasons over a synthetic **FHIR R4** bundle

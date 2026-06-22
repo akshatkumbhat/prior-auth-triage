@@ -10,10 +10,17 @@ and the policy rules that fired.
 from __future__ import annotations
 
 import json
+import sys
 import time
 from pathlib import Path
 
 import streamlit as st
+
+# Make the src/ layout importable without installing the package — e.g. on
+# Hugging Face Spaces, where the app runs straight from the repo checkout.
+_SRC = Path(__file__).resolve().parents[1] / "src"
+if _SRC.is_dir() and str(_SRC) not in sys.path:
+    sys.path.insert(0, str(_SRC))
 
 from pa_triage.config import get_settings
 from pa_triage.demo_llm import HeuristicLLM
@@ -59,7 +66,7 @@ sample_names = [p.name for p in samples]
 choice = st.sidebar.selectbox("Pick a sample bundle", ["— choose —", *sample_names])
 uploaded = st.sidebar.file_uploader("…or upload a FHIR bundle (JSON)", type=["json"])
 
-run = st.sidebar.button("▶ Run triage", type="primary", use_container_width=True)
+run = st.sidebar.button("▶ Run triage", type="primary", width="stretch")
 
 
 def _load_selected() -> tuple[dict | None, str | None]:
@@ -124,7 +131,7 @@ def _render_decision(state: TriageState) -> None:
                 for r in decision.fired_rules
             ],
             hide_index=True,
-            use_container_width=True,
+            width="stretch",
         )
     if decision.missing_info:
         st.markdown("**Missing information (required to proceed)**")

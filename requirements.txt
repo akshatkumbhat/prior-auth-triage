@@ -1,0 +1,13 @@
+# Runtime dependencies for deployment (e.g. Hugging Face Spaces).
+# The local package is imported via the src/ path (see app/dashboard.py),
+# so it does not need to be pip-installed.
+langgraph>=0.2.0
+langchain-core>=0.3.0
+langchain-google-genai>=2.0.0
+langchain-ollama>=0.2.0
+pydantic>=2.7
+pydantic-settings>=2.3
+streamlit>=1.36
+# cryptography is transitive (via google-auth); cap to a release with a
+# prebuilt wheel to avoid a from-source build on some platforms.
+cryptography<49
