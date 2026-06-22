@@ -9,7 +9,9 @@ and the policy rules that fired.
 
 from __future__ import annotations
 
+import importlib.metadata as _md
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -31,6 +33,65 @@ from pa_triage.pipeline import stream_triage
 st.set_page_config(page_title="Prior-Auth Triage (PoC)", page_icon="🩺", layout="wide")
 
 settings = get_settings()
+
+
+def _mask(value: str | None) -> str:
+    if not value:
+        return "(empty)"
+    return f"set · len={len(value)} · prefix={value[:4]}… · suffix=…{value[-4:]}"
+
+
+def gemini_diagnostics() -> dict[str, object]:
+    """Collect (masked) runtime info to diagnose Gemini auth. No API calls, no secrets."""
+    info: dict[str, object] = {}
+    for pkg in ("langchain-google-genai", "google-genai", "google-auth"):
+        try:
+            info[f"version:{pkg}"] = _md.version(pkg)
+        except Exception:
+            info[f"version:{pkg}"] = "(not installed)"
+
+    # Google/Vertex-relevant environment that can flip the client into OAuth mode.
+    watch = [
+        "GOOGLE_API_KEY", "GEMINI_API_KEY", "GOOGLE_GENAI_USE_VERTEXAI",
+        "GOOGLE_CLOUD_PROJECT", "GCLOUD_PROJECT", "GCP_PROJECT",
+        "GOOGLE_CLOUD_LOCATION", "GOOGLE_APPLICATION_CREDENTIALS",
+    ]
+    for k in watch:
+        v = os.getenv(k)
+        info[f"env:{k}"] = "(unset)" if v is None else (_mask(v) if "KEY" in k else v)
+    # Catch any other ambient Google/Vertex/GCP vars we didn't anticipate.
+    extra = sorted(
+        k for k in os.environ
+        if any(t in k.upper() for t in ("GOOGLE", "VERTEX", "GCP", "GCLOUD"))
+        and k not in watch
+    )
+    info["env:other_google_vars"] = extra or "(none)"
+
+    info["settings.google_api_key"] = _mask(settings.google_api_key)
+
+    # What auth path would the client take? Build it (no network) and read the flag.
+    try:
+        from langchain_google_genai import ChatGoogleGenerativeAI
+
+        probe = ChatGoogleGenerativeAI(
+            model=settings.gemini_model,
+            google_api_key=settings.google_api_key or "placeholder",
+            vertexai=False,
+        )
+        info["client._use_vertexai"] = getattr(probe, "_use_vertexai", "?")
+    except Exception as exc:  # pragma: no cover - diagnostic only
+        info["client_build_error"] = f"{type(exc).__name__}: {exc}"
+    return info
+
+
+# Emit diagnostics to stdout once at startup so they appear in the Space logs.
+try:
+    print("=== PA-TRIAGE GEMINI DIAGNOSTICS ===", flush=True)
+    for _k, _v in gemini_diagnostics().items():
+        print(f"  {_k} = {_v}", flush=True)
+    print("=== END DIAGNOSTICS ===", flush=True)
+except Exception as _e:  # pragma: no cover
+    print("diagnostics failed:", _e, flush=True)
 
 AGENT_LABELS = {
     "intake": "1 · Intake / Parser",
