@@ -1,13 +1,19 @@
 # Runtime dependencies for deployment (e.g. Hugging Face Spaces).
 # The local package is imported via the src/ path (see app/dashboard.py),
 # so it does not need to be pip-installed.
-langgraph>=0.2.0
-langchain-core>=0.3.0
-langchain-google-genai>=2.0.0
-langchain-ollama>=0.2.0
-pydantic>=2.7
-pydantic-settings>=2.3
-streamlit>=1.36
+#
+# Versions are PINNED to the set verified working locally. In particular,
+# google-genai must stay at 2.9.0: newer releases reject AI Studio "AQ."-style
+# API keys with 401 ACCESS_TOKEN_TYPE_UNSUPPORTED.
+langgraph==1.2.6
+langchain-core==1.4.8
+langchain-google-genai==4.2.5
+google-genai==2.9.0
+google-auth==2.55.0
+langchain-ollama==1.1.0
+pydantic==2.13.4
+pydantic-settings==2.14.2
+streamlit==1.58.0
 # cryptography is transitive (via google-auth); cap to a release with a
 # prebuilt wheel to avoid a from-source build on some platforms.
 cryptography<49
